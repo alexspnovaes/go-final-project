@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  api:
+    container_name: 'api'
+    build: .
+    ports:
+      - '10000:10000'
+    volumes:
+      - './api:/go/src/app'
+    depends_on:
+      - 'mongodb'
+    networks:
+      - api
+  mongodb:
+    image: 'mongo:latest'
+    container_name: 'mongodb'
+    ports:
+      - '27017:27017'
+    networks:
+      - api
+networks: 
+  api:
+    driver: bridge
